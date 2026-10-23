@@ -1,29 +1,6 @@
-"""
-
-import pygame
-from game import Game
-import constants as ct
-import asyncio
-
-class App:
-
-
-    def draw(self):
-        #self.game.draw()
-        if self.test:
-            pygame.transform.scale_by(ct.RENDER_BUFFER, self.screen_mult, self.screen)
-        else:
-            self.screen.blit(ct.RENDER_BUFFER, (0, 0))
-        pygame.display.update()
-
-"""
-
-
-
 """The game's main file"""
-# Library import
 
-# C:\Users\Admin\AppData\Roaming\Python\Python313\Scripts\pyinstaller.exe --onefile -w main.py to get .exe
+# Library import
 
 import pygame
 import constants as ct
@@ -48,7 +25,7 @@ class App:
         ct.RENDER_BUFFER = pygame.Surface((ct.GAME_DRAW_SIZE_X, ct.GAME_DRAW_SIZE_Y), pygame.OPENGL)
         ct.CLOCK = pygame.time.Clock()
         self.screen = pygame.display.set_mode(self.screen_size)
-        pygame.display.set_caption('Pew Pew :3')
+        pygame.display.set_caption('Block Blast')
         icon = pygame.image.load("assets/images/icon.png")
         pygame.display.set_icon(icon)
 

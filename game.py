@@ -11,7 +11,7 @@ class Game:
         self.state = MAIN_MENU
 
     def draw(self):
-        ct.RENDER_BUFFER.fill((255,0,0))
+        ct.RENDER_BUFFER.fill((0,0,0))
         if self.state == MAIN_MENU:
             pass
         elif self.state == PAUSED:
