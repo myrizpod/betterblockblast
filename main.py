@@ -1,51 +1,38 @@
-"""The game's main file"""
-
-# Library import
-
 import pygame
-import constants as ct
 import game
+
+BUFFER_SCALE_X = 256
+BUFFER_SCALE_Y = 256
 
 class App:
 
-    def __init__(self, test = False):
-        """
-        Called on game startup, all basic stuff
-        """
-
-        #Creating basics of the game
-
-        self.test = test
-        self.screen_mult = 3
-        ct.SCREEN_MULT = self.screen_mult
-        self.screen_size = (ct.GAME_DRAW_SIZE_X * self.screen_mult, ct.GAME_DRAW_SIZE_Y * self.screen_mult) #if test else (ct.GAME_DRAW_SIZE_X, ct.GAME_DRAW_SIZE_Y)
+    def __init__(self,m):
+        self.screen_mult = m
+        self.screen_size = (BUFFER_SCALE_X * self.screen_mult, BUFFER_SCALE_Y * self.screen_mult)
         pygame.init()
-        pygame.mixer.init()
+        pygame.mixer.init() #sons (sert peut etre a rien)
         self.running = True
-        ct.RENDER_BUFFER = pygame.Surface((ct.GAME_DRAW_SIZE_X, ct.GAME_DRAW_SIZE_Y), pygame.OPENGL)
-        ct.CLOCK = pygame.time.Clock()
+        self.buffer = pygame.Surface((BUFFER_SCALE_X, BUFFER_SCALE_Y), pygame.OPENGL)
+        self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption('Block Blast')
         icon = pygame.image.load("assets/images/icon.png")
         pygame.display.set_icon(icon)
 
         self.game = game.Game()
-
-        #Starting game loop
         self.loop()
         pygame.quit()
 
     def loop(self):
-        """
-        Global game loop
-        """
-
         while self.running:
+            # a chier
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         self.running = False
-            ct.CLOCK.tick(30)
-            ct.RENDER_BUFFER.fill((0,255,0))
+
+
+            self.clock.tick(60)
+            self.buffer.fill((0,255,0))
             self.update()
             self.draw()
             pygame.display.update()
@@ -57,14 +44,9 @@ class App:
         self.game.update()
 
     def draw(self):
-        self.game.draw()
-        if self.test:
-            pygame.transform.scale_by(ct.RENDER_BUFFER, self.screen_mult, self.screen)
-        else:
-            self.screen.blit(ct.RENDER_BUFFER, (0, 0))
+        self.game.draw(self.buffer)
+        pygame.transform.scale_by(self.buffer, self.screen_mult, self.screen)
         pygame.display.update()
 
-
-
 if __name__ == '__main__':
-    App(True)
+    App(3)
