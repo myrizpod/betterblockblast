@@ -1,5 +1,6 @@
 import pygame
 import game
+import grid
 
 BUFFER_SCALE_X = 256
 BUFFER_SCALE_Y = 256
@@ -19,7 +20,8 @@ class App:
         icon = pygame.image.load("assets/images/icon.png")
         pygame.display.set_icon(icon)
 
-        self.game = game.Game()
+        
+        self.game = game.Game(grid.generateEmpty(8))
         self.loop()
         pygame.quit()
 
@@ -35,7 +37,6 @@ class App:
             self.buffer.fill((0,255,0))
             self.update()
             self.draw()
-            pygame.display.update()
 
         pygame.quit()
 

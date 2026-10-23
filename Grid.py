@@ -1,5 +1,5 @@
 class Tile:
-    def __innit__(self,color,isempty):
+    def __init__(self,color,isempty):
         self.color = color
         self.isempty = isempty                   
 
@@ -7,6 +7,7 @@ class Grid:
     def __init__(self,size,tiles):
         self.size = size
         self.tiles = tiles
+
 
     def break_line(self,line):
         for i in range(self.size-1):
@@ -50,6 +51,7 @@ class Grid:
             y = object.cubes[i][1] + place[1]
             self.tiles[y][x].isempty = False
 
-
+def generateEmpty(size):
+    return Grid(size,[[Tile(0,True) for _ in range(size)] for _ in range(size)])
 
         
