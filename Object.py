@@ -1,5 +1,5 @@
 class Object:
-    def __init__(self, cubes, rot):
+    def __init__(self, cubes):
           self.cubes = cubes
 
     def rotate(self,cubes):

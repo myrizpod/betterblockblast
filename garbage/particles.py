@@ -66,7 +66,6 @@ class Break(Particle):
 
         x = random.randint(0,15)+col*16
         y = random.randint(0,15)
-        print(x,y)
         self.col = tiles.unmap_rgb(pygame.PixelArray(tiles)[x, y])
         self.size = random.random()*3
         super().__init__(pos+pygame.Vector2(random.random()*10-5,random.random()*10-5),pygame.Vector2(random.random()-0.5,-random.random()),pygame.Vector2(0,0.1),1,random.randint(15,35))

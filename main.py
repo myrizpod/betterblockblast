@@ -1,6 +1,6 @@
 import pygame
 import game
-import grid
+import Grid as grid
 
 BUFFER_SCALE_X = 256
 BUFFER_SCALE_Y = 256
@@ -21,7 +21,7 @@ class App:
         pygame.display.set_icon(icon)
 
         
-        self.game = game.Game(grid.generateEmpty(8))
+        self.game = game.Game(grid.generateRandom(8),m)
         self.loop()
         pygame.quit()
 
