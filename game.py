@@ -1,7 +1,6 @@
-kkimport random
+import random
 
 import pygame
-from psycopg.types import none
 
 from Cube import Cube
 from Grid import Grid
@@ -82,6 +81,16 @@ class Game:
 
         if pygame.mouse.get_just_pressed()[0]:
             self.mousePressEvent(mpos)
+
+        if self.game_over_check():
+            self.draw_game_over()
+                
+                    
+
+        for p in reversed(self.particles):
+            if p.update():
+                self.particles.remove(p)
+        
     def draw_given_objects(self, buffer,objects): 
         for k in range(3):
             drawn_object = objects[k]
@@ -90,21 +99,7 @@ class Game:
 
     def draw_game_over(self,buffer):
         buffer.blit(self.gameOver, (0,0))
-
-
-    def update(self):
-        gpos = pygame.mouse.get_pos()
-        gpos = (gpos[0]//16//self.screenMult-4,gpos[1]//16//self.screenMult-4)
-        self.grid.place_object(Object([Cube(random.randint(0,9),0,0)]),gpos)
-        self.grid.update()
-        if self.game_over_check():
-            self.draw_game_over()
-             
-            
-
-        for p in reversed(self.particles):
-            if p.update():
-                self.particles.remove(p)
+        
 
     def breakAnim(self,x,y,col):
         for _ in range(20):
@@ -129,6 +124,8 @@ class Game:
     def game_over_check(self):
         game_over = True
         for e in self.givenObjects:
+            if e==None:
+                continue
             if algo.all_valid_spot(e,self.grid) != []:
                 game_over = False
         return game_over        
