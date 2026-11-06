@@ -2,12 +2,12 @@ class Object:
     def __init__(self, cubes):
           self.cubes = cubes
 
-    def rotate(self,cubes):
-        for i in cubes:
+    def rotate(self):
+        for i in self.cubes:
             i.X,i.Y = i.Y,-i.X
 
-    def mirrorX(self,cubes):
-        for i in cubes:
+    def mirrorX(self):
+        for i in self.cubes:
             i.X = -i.X
 
     def setColor(self,col):
