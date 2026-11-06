@@ -15,6 +15,7 @@ class Grid:
 
     def __init__(self,size,tiles):
         self.size = size
+        self.origin = (96,32)
         self.tiles = tiles
         self.parent = None
 
@@ -22,13 +23,13 @@ class Grid:
     def break_line(self,line):
         self.parent.lineBreakPts()
         for i in range(self.size):
-            self.parent.breakAnim(72 + 16 * i, 72 + 16 * line,self.tiles[line][i].color)
+            self.parent.breakAnim(self.origin[0]+8 + 16 * i, self.origin[1]+8 + 16 * line,self.tiles[line][i].color)
             self.tiles[line][i].isempty = True
 
     def break_col(self,col):
         self.parent.lineBreakPts()
         for i in range(self.size):
-            self.parent.breakAnim(72 + 16 * col, 72 + 16 * i, self.tiles[i][col].color)
+            self.parent.breakAnim(self.origin[0]+8 + 16 * col, self.origin[1]+8 + 16 * i, self.tiles[i][col].color)
             self.tiles[i][col].isempty = True
 
     def breaking(self):
@@ -60,23 +61,23 @@ class Grid:
 
     def place_object(self,object,place):
         if not 0<=place[0]<self.size or not 0<=place[1]<self.size:
-            print(place,self.size)
-            return
+            return False
         if self.can_place(object,place) == False:
-            return
+            return False
         for i in range(len(object.cubes)):
             x = object.cubes[i].X + place[0]
             y = object.cubes[i].Y + place[1]
             self.tiles[y][x].isempty = False
             self.tiles[y][x].color = object.cubes[i].color
+        return True
 
     def draw(self, buffer):
         for i in range(self.size):
             for j in range(self.size):
                 if self.tiles[j][i].isempty:
-                    buffer.blit(Grid.emptyTile, (64 + 16 * i, 32 + 16 * j, 16, 16))
+                    buffer.blit(Grid.emptyTile, (self.origin[0] + 16 * i, self.origin[1] + 16 * j, 16, 16))
                 else:
-                    buffer.blit(Grid.coloredTiles, (64 + 16 * i, 32 + 16 * j, 16, 16), (16*self.tiles[j][i].color,0,16,16))
+                    buffer.blit(Grid.coloredTiles, (self.origin[0] + 16 * i, self.origin[1] + 16 * j, 16, 16), (16*self.tiles[j][i].color,0,16,16))
 
 
     def update(self):
