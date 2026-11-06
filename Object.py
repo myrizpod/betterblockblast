@@ -4,9 +4,12 @@ class Object:
 
     def rotate(self,cubes):
         for i in cubes:
-            i[0] = i[1]
-            i[1] = -i[0] 
+            i.X,i.Y = i.Y,-i.X
 
     def mirrorX(self,cubes):
         for i in cubes:
-            i[0] = -i[0]                 
+            i.X = -i.X
+
+    def setColor(self,col):
+        for e in self.cubes:
+            e.color = col

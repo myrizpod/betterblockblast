@@ -11,6 +11,7 @@ class App:
         self.screen_mult = m
         self.screen_size = (BUFFER_SCALE_X * self.screen_mult, BUFFER_SCALE_Y * self.screen_mult)
         pygame.init()
+        pygame.font.init()
         pygame.mixer.init() #sons (sert peut etre a rien)
         self.running = True
         self.buffer = pygame.Surface((BUFFER_SCALE_X, BUFFER_SCALE_Y), pygame.OPENGL)
