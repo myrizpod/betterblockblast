@@ -20,6 +20,7 @@ class Game:
         self.screenMult = m
         self.givenObjects = algo.give_objects(self.grid)
         self.font = pygame.font.Font("assets/fonts/m6x11.ttf",16)
+        self.gameOver =  pygame.image.load("assets/images/GameOver.png")
 
     def outlinedText(self,buffer,text,pos):
         for x in range(-1,2):
@@ -36,25 +37,25 @@ class Game:
         self.grid.draw(buffer)
         self.draw_given_objects(buffer,self.givenObjects)
 
+
         for p in self.particles:
             p.draw(buffer)
+        self.outlinedText(buffer,str(self.score),(30,70))
+        
+        self.outlinedText(buffer,'X'+str(self.streak),(30,50))
+        
+        
+        if self.streak>1:
+            self.particles.append(particles.Flame(pygame.Vector2(30, 50), self.streak))    
+
     def draw_given_objects(self, buffer,objects): 
         for k in range(3):
             drawn_object = objects[k]
             for i in drawn_object.cubes:
                 buffer.blit(Grid.coloredTiles, (64 + 64*k + 16*i.X, 192 + 16*i.Y, 16, 16), (16*i.color,0,16,16))
 
-
-        self.outlinedText(buffer,str(self.score),(30,70))
-
-        self.outlinedText(buffer,'X'+str(self.streak),(30,50))
-
-
-        if self.streak>1:
-            self.particles.append(particles.Flame(pygame.Vector2(30, 50), self.streak))
-
-
-
+    def draw_game_over(self,buffer):
+        buffer.blit(self.gameOver, (0,0))
 
 
     def update(self):
@@ -62,6 +63,10 @@ class Game:
         gpos = (gpos[0]//16//self.screenMult-4,gpos[1]//16//self.screenMult-4)
         self.grid.place_object(Object([Cube(random.randint(0,9),0,0)]),gpos)
         self.grid.update()
+        if self.game_over_check():
+            self.draw_game_over()
+             
+            
 
         for p in reversed(self.particles):
             if p.update():
@@ -73,3 +78,11 @@ class Game:
 
     def lineBreakPts(self):
         self.score+=10*self.streak
+
+    def game_over_check(self):
+        game_over = True
+        for e in self.givenObjects:
+            if algo.all_valid_spot(e,self.grid) != []:
+                game_over = False
+        return game_over        
+

@@ -39,3 +39,11 @@ def give_objects(grid):
         objects.append(obj)
     return objects
 
+def all_valid_spot(object,grid):
+    all_spot = []
+    for i in range(grid.size):
+        for j in range(grid.size):
+            if grid.can_place(object,(i,j)):
+                all_spot.append((i,j))
+    return all_spot            
+
