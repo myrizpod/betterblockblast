@@ -1,3 +1,5 @@
+import copy
+
 from Cube import Cube
 from Grid import Grid
 from Object import Object
@@ -30,8 +32,8 @@ ALL_OBJECTS =[ Object([Cube(0,0,0),Cube(0,0,1)]),
 def give_objects(grid):
     objects = []
     for i in range(3):
-        obj = ALL_OBJECTS[random.randint(0,len(ALL_OBJECTS)-1)]
-        for i in range(random.randint(0,3)):
+        obj = copy.deepcopy(ALL_OBJECTS[random.randint(0,len(ALL_OBJECTS)-1)])
+        for _ in range(random.randint(0,3)):
             obj.rotate()
         if  random.randint(0,1) == 1:
             obj.mirrorX()

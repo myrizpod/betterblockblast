@@ -2,8 +2,8 @@ import pygame
 import game
 import Grid as grid
 
-BUFFER_SCALE_X = 256
-BUFFER_SCALE_Y = 256
+BUFFER_SCALE_X = 320
+BUFFER_SCALE_Y = 320
 
 class App:
 
