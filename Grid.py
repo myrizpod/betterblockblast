@@ -49,9 +49,9 @@ class Grid:
                 self.break_col(i)        
     
     def can_place(self,object,place):
-        for i in range(len(object.cubes)-1):
-            x = object.cubes[i][0] + place[0]
-            y = object.cubes[i][1] + place[1]
+        for i in range(len(object.cubes)):
+            x = object.cubes[i].X + place[0]
+            y = object.cubes[i].Y + place[1]
             if x < 0 or x > 7 or y < 0 or y > 7:
                 return False
             if self.tiles[y][x].isempty == False:
@@ -68,14 +68,15 @@ class Grid:
             x = object.cubes[i].X + place[0]
             y = object.cubes[i].Y + place[1]
             self.tiles[y][x].isempty = False
+            self.tiles[y][x].color = object.cubes[i].color
 
     def draw(self, buffer):
         for i in range(self.size):
             for j in range(self.size):
                 if self.tiles[j][i].isempty:
-                    buffer.blit(Grid.emptyTile, (64 + 16 * i, 64 + 16 * j, 16, 16))
+                    buffer.blit(Grid.emptyTile, (64 + 16 * i, 32 + 16 * j, 16, 16))
                 else:
-                    buffer.blit(Grid.coloredTiles, (64 + 16 * i, 64 + 16 * j, 16, 16), (16*self.tiles[j][i].color,0,16,16))
+                    buffer.blit(Grid.coloredTiles, (64 + 16 * i, 32 + 16 * j, 16, 16), (16*self.tiles[j][i].color,0,16,16))
 
 
     def update(self):

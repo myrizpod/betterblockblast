@@ -21,7 +21,7 @@ class App:
         pygame.display.set_icon(icon)
 
         
-        self.game = game.Game(grid.generateRandom(8),m)
+        self.game = game.Game(grid.generateEmpty(8),m)
         self.loop()
         pygame.quit()
 
